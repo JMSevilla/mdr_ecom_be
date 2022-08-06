@@ -57,6 +57,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8081',
+    'http://localhost:3000'
 )
 
 ROOT_URLCONF = 'be_mdr_ecommerce.urls'
@@ -126,6 +127,14 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.CryptPasswordHasher',
 ]
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'miggysvll@gmail.com'
+EMAIL_HOST_PASSWORD = 'Vladimirkyiv998'
+EMAIL_USE_TLS = True
+
+PY_EMAIL_PASS = "lderoadjinheepuq"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
