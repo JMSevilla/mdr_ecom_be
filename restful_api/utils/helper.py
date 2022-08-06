@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 class GeneralParams:
     params_result = ''
     field_success_BO_registration = ''
+    field_success_Project_entry = ''
     
 
 class GeneralHelper:
@@ -16,6 +17,8 @@ class GeneralHelper:
             case 'POST':
                 if condition == 'api/business-owner-registration':
                     return GeneralHelper.__init__registration_businessowner(params)
+                elif condition == 'api/project-entry':
+                    return GeneralHelper.__init__project_entry(params)
     
     #entity functions
     def checkEmail(params):
@@ -43,3 +46,15 @@ class GeneralHelper:
         businessowner.save()
         GeneralParams.field_success_BO_registration = "success_bo_registration"
         return GeneralParams.field_success_BO_registration
+    
+    def __init__project_entry(params):
+        project = Project()
+        project.projectname = params['projectname']
+        project.projectdetails = params['projectdetails']
+        project.projectfeatures = params['projectfeatures']
+        project.projectprice = params['projectprice']
+        project.projectstatus = "0"
+        project.projecttype = params['projecttype']
+        project.save()
+        GeneralParams.field_success_Project_entry = "success_project_entry"
+        return GeneralParams.field_success_Project_entry
