@@ -26,6 +26,8 @@ class BusinessOwner(models.Model):
     isLock = models.CharField(max_length=1, blank=False, default='')
     isverified = models.CharField(max_length=1, blank=False, default='')
     imgURL = models.CharField(max_length=255, blank=False, default='')
+    sec_question = models.CharField(max_length=150, blank=False, default='')
+    sec_answer = models.CharField(max_length=255, blank=False, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

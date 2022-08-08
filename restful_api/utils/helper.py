@@ -14,6 +14,7 @@ class GeneralParams:
     field_update_counts = ''
     field_check_code_inputs = []
     field_email_checker_str = ''
+    field_verified_str = ''
 
 
 class GeneralHelper:
@@ -38,6 +39,8 @@ class GeneralHelper:
             case 'PUT':
                 if condition == 'api/business-update-counts':
                     return GeneralHelper.__init__update_counts(params)
+                elif condition == 'api/business-update-to-verified':
+                    return GeneralHelper.__init__update_to_verified(params)
 
     # entity functions
 
@@ -63,6 +66,8 @@ class GeneralHelper:
         businessowner.isLock = "0"
         businessowner.isverified = params['isverified']
         businessowner.imgURL = "none"
+        businessowner.sec_question = params['sec_question']
+        businessowner.sec_answer = params['sec_answer']
         businessowner.save()
         GeneralParams.field_success_BO_registration = "success_bo_registration"
         return GeneralParams.field_success_BO_registration
@@ -75,6 +80,7 @@ class GeneralHelper:
         project.projectprice = params['projectprice']
         project.projectstatus = "0"
         project.projecttype = params['projecttype']
+        project.clientEmail = params['email']
         project.save()
         GeneralParams.field_success_Project_entry = "success_project_entry"
         return GeneralParams.field_success_Project_entry
@@ -104,10 +110,20 @@ class GeneralHelper:
         GeneralParams.field_update_counts = "success"
         return GeneralParams.field_update_counts
 
+    def __init__update_to_verified(params):
+        AccountVerification_1.objects.filter(
+            client_email=params['email']
+        ).update(verified="1")
+        BusinessOwner.objects.filter(
+            email=params['email']
+        ).update(isverified="1")
+        GeneralParams.field_verified_str = "verified_success"
+        return GeneralParams.field_verified_str
+
     def __init__check_code_inputs(params):
         compared = AccountVerification_1.objects.filter(
-            verification_code=params
-        ).values()
+            verification_code=params['code']
+        ).filter(client_email=params['email']).values()
         GeneralParams.field_check_code_inputs = compared
         return GeneralParams.field_check_code_inputs
 

@@ -32,7 +32,9 @@ class BusinessOwnerController:
                 "address": request.POST.get('address'),
                 "email": request.POST.get('email'),
                 "password": request.POST.get('password'),
-                "isverified": request.POST.get('isverified')
+                "isverified": request.POST.get('isverified'),
+                "sec_question": request.POST.get('sec_question'),
+                "sec_answer": request.POST.get('sec_answer')
             }
             GeneralHelper.Slug(
                 'POST',
@@ -139,3 +141,31 @@ class BusinessOwnerController:
         s.sendmail(settings.EMAIL_HOST_USER,
                    email, message)
         s.quit()
+
+    @api_view(['GET', 'PUT'])
+    def compare_verification_code(request, email, code):
+        if request.method == 'GET':
+            collect = {
+                "email" : email,
+                "code" : code
+            }
+            GeneralHelper.Slug(
+                'GET',
+                'business-verification-check-code',
+                collect
+            )
+            if GeneralParams.field_check_code_inputs.count() > 0:
+                GeneralHelper.Slug(
+                    'PUT',
+                    'api/business-update-to-verified',
+                    email
+                )
+                if GeneralParams.field_verified_str == 'verified_success':
+                    return Response({"message":GeneralParams.field_verified_str}, status=status.HTTP_200_OK)
+                else:
+                    return Response({"message":"verification_problem"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                Response({"message":"invalid_verified"}, status=status.HTTP_200_OK)
+            return Response({
+                "message" : GeneralParams.field_check_code_inputs
+            }, status=status.HTTP_200_OK)

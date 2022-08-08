@@ -16,3 +16,32 @@ class ProjectController:
                 return Response({"message":"empty"}, status=status.HTTP_204_NO_CONTENT)
             else:
                 return Response({"message":"not_empty"}, status=status.HTTP_200_OK)
+    
+    @api_view(['POST'])
+    def create_project(request):
+        if request.method == 'POST':
+            collection = {
+                "projectname":
+                request.POST.get('projectname'),
+                "projectdetails":
+                request.POST.get('projectdetails'),
+                "projectfeatures":
+                request.POST.get('projectfeatures'),
+                "projectprice":
+                request.POST.get('projectprice'),
+                "projecttype":
+                request.POST.get('projecttype'),
+                "email":
+                request.POST.get('email')
+            }
+            GeneralHelper.Slug(
+                'POST',
+                'api/project-entry',
+                collection
+            )
+            if GeneralParams.field_success_Project_entry == "success_bo_registration":
+                return Response({"message":GeneralParams.field_success_Project_entry}, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    "message":GeneralParams.field_success_Project_entry
+                }, status=status.HTTP_200_OK)

@@ -18,5 +18,8 @@ urlpatterns = [
     re_path(r'^api/check-email-verification/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
             BOController.BusinessOwnerController.business_verify_email),
     re_path(r'^api/business-update-with-send/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
-            BOController.BusinessOwnerController.business_update_with_sendemail)
+            BOController.BusinessOwnerController.business_update_with_sendemail),   
+    re_path(r'^api/compare-verification-code/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
+    BOController.BusinessOwnerController.compare_verification_code),
+    re_path(r'^api/project-creation/$', ProjectController.ProjectController.create_project)
 ]
