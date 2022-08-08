@@ -46,6 +46,7 @@ class BusinessOwnerController:
 
     @api_view(['GET'])
     def business_verification(request, email, code):
+
         s = smtplib.SMTP('smtp.gmail.com', 587)
         s.starttls()
         s.login(settings.EMAIL_HOST_USER, settings.PY_EMAIL_PASS)
@@ -61,6 +62,18 @@ class BusinessOwnerController:
             },
             status=status.HTTP_200_OK
         )
+
+
+
+    @api_view(['GET'])
+    def business_verify_email(request, email):
+        if request.method == 'GET':
+            GeneralHelper.Slug(
+                'GET',
+                'business-check-email-verification',
+                email
+            )
+            return Response({"message" : GeneralParams.field_email_checker_str}, status=status.HTTP_200_OK)
 
     @api_view(['POST'])
     def business_verification_record(request):
@@ -80,3 +93,49 @@ class BusinessOwnerController:
                 },
                 status=status.HTTP_200_OK
             )
+    @api_view(['GET', 'PUT'])
+    def business_update_with_sendemail(request, email, code):
+        if request.method == 'PUT':
+            BusinessOwnerController.send_email_helper(email, code)
+            collective = {
+                "email": email,
+                "code": code
+            }
+            GeneralHelper.Slug(
+                'PUT',
+                'api/business-update-counts',
+                collective
+            )
+            return Response({"message" : GeneralParams.field_update_counts}, status=status.HTTP_200_OK)
+
+    @api_view(['GET'])
+    def business_verification_checkcounts(request, email, code):
+        if request.method == 'GET':
+            GeneralHelper.Slug(
+                'GET',
+                'business-verification-check-counts',
+                email
+            )
+            BusinessOwnerController.send_email_helper(email, code)
+            collective = {
+                "email": email,
+                "code": code
+            }
+            GeneralHelper.Slug(
+                'PUT',
+                'api/business-update-counts',
+                collective
+            )
+            return Response({"message": "success"}, status=status.HTTP_200_OK)
+        return Response({"message": GeneralParams.field_check_counts.count()}, status=status.HTTP_200_OK)
+
+    def send_email_helper(email, code):
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.starttls()
+        s.login(settings.EMAIL_HOST_USER, settings.PY_EMAIL_PASS)
+        subject = 'MDR Ecommerce Verification Code'
+        text = code
+        message = 'Subject: {}\n\n{}'.format(subject, text)
+        s.sendmail(settings.EMAIL_HOST_USER,
+                   email, message)
+        s.quit()
