@@ -65,8 +65,6 @@ class BusinessOwnerController:
             status=status.HTTP_200_OK
         )
 
-
-
     @api_view(['GET'])
     def business_verify_email(request, email):
         if request.method == 'GET':
@@ -75,7 +73,7 @@ class BusinessOwnerController:
                 'business-check-email-verification',
                 email
             )
-            return Response({"message" : GeneralParams.field_email_checker_str}, status=status.HTTP_200_OK)
+            return Response({"message": GeneralParams.field_email_checker_str}, status=status.HTTP_200_OK)
 
     @api_view(['POST'])
     def business_verification_record(request):
@@ -95,6 +93,7 @@ class BusinessOwnerController:
                 },
                 status=status.HTTP_200_OK
             )
+
     @api_view(['GET', 'PUT'])
     def business_update_with_sendemail(request, email, code):
         if request.method == 'PUT':
@@ -108,7 +107,7 @@ class BusinessOwnerController:
                 'api/business-update-counts',
                 collective
             )
-            return Response({"message" : GeneralParams.field_update_counts}, status=status.HTTP_200_OK)
+            return Response({"message": GeneralParams.field_update_counts}, status=status.HTTP_200_OK)
 
     @api_view(['GET'])
     def business_verification_checkcounts(request, email, code):
@@ -146,8 +145,8 @@ class BusinessOwnerController:
     def compare_verification_code(request, email, code):
         if request.method == 'GET':
             collect = {
-                "email" : email,
-                "code" : code
+                "email": email,
+                "code": code
             }
             GeneralHelper.Slug(
                 'GET',
@@ -158,14 +157,14 @@ class BusinessOwnerController:
                 GeneralHelper.Slug(
                     'PUT',
                     'api/business-update-to-verified',
-                    email
+                    collect
                 )
                 if GeneralParams.field_verified_str == 'verified_success':
-                    return Response({"message":GeneralParams.field_verified_str}, status=status.HTTP_200_OK)
+                    return Response({"message": GeneralParams.field_verified_str}, status=status.HTTP_200_OK)
                 else:
-                    return Response({"message":"verification_problem"}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({"message": "verification_problem"}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                Response({"message":"invalid_verified"}, status=status.HTTP_200_OK)
-            return Response({
-                "message" : GeneralParams.field_check_code_inputs
-            }, status=status.HTTP_200_OK)
+                return Response({"message": "invalid_verified"}, status=status.HTTP_200_OK)
+        return Response({
+            "message": GeneralParams.field_check_code_inputs
+        }, status=status.HTTP_200_OK)

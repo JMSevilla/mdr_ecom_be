@@ -77,6 +77,7 @@ class GeneralHelper:
         project.projectname = params['projectname']
         project.projectdetails = params['projectdetails']
         project.projectfeatures = params['projectfeatures']
+        project.projectcategory = params['projectcategory']
         project.projectprice = params['projectprice']
         project.projectstatus = "0"
         project.projecttype = params['projecttype']
