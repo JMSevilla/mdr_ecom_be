@@ -37,7 +37,7 @@ class Project(models.Model):
     projectdetails = models.CharField(max_length=255, blank=False, default='')
     projectcategory = models.CharField(max_length=100, blank=False, default='')
     projecttype = models.CharField(max_length=100, blank=False, default='')
-    projectfeatures = models.CharField(max_length=255, blank=False, default='')
+    projectfeatures = models.TextField()
     projectprice = models.BigIntegerField()
     clientEmail = models.CharField(max_length=255, blank=False, default='')
     projectstatus = models.CharField(max_length=1, blank=False, default='')

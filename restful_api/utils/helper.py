@@ -15,7 +15,8 @@ class GeneralParams:
     field_check_code_inputs = []
     field_email_checker_str = ''
     field_verified_str = ''
-
+    field_fetching_project = []
+    field_fetching_bo = []
 
 class GeneralHelper:
     def Slug(method, condition, params):
@@ -29,6 +30,10 @@ class GeneralHelper:
                     return GeneralHelper.__init__check_code_inputs(params)
                 elif condition == 'business-check-email-verification':
                     return GeneralHelper.__init__check_email_before_push(params)
+                elif condition == 'fetch-project':
+                    return GeneralHelper.__init__findAllProjectByEmail(params)
+                elif condition == 'fetch-bo':
+                    return GeneralHelper.__init__findAllBOByEmail(params)
             case 'POST':
                 if condition == 'api/business-owner-registration':
                     return GeneralHelper.__init__registration_businessowner(params)
@@ -143,3 +148,17 @@ class GeneralHelper:
         else:
             GeneralParams.field_email_checker_str = "doest_not_exist"
         return GeneralParams.field_email_checker_str
+
+    def __init__findAllProjectByEmail(params):
+        filtered = Project.objects.filter(
+            clientEmail=params
+        ).values()
+        GeneralParams.field_fetching_project = filtered
+        return GeneralParams.field_fetching_project
+    
+    def __init__findAllBOByEmail(params):
+        filtered = BusinessOwner.objects.filter(
+            email=params
+        ).values()
+        GeneralParams.field_fetching_bo = filtered
+        return GeneralParams.field_fetching_bo

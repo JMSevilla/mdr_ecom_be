@@ -21,5 +21,10 @@ urlpatterns = [
             BOController.BusinessOwnerController.business_update_with_sendemail),   
     re_path(r'^api/compare-verification-code/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
     BOController.BusinessOwnerController.compare_verification_code),
-    re_path(r'^api/project-creation/$', ProjectController.ProjectController.create_project)
+    re_path(r'^api/project-creation/$', ProjectController.ProjectController.create_project),
+    #fetching api project and business owner 
+    re_path(r'^api/getall-projectbyemail/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
+    ProjectController.ProjectController.__fetch_project__),
+    re_path(r'^api/getall-businessbyemail/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
+    BOController.BusinessOwnerController.findAllBo)
 ]

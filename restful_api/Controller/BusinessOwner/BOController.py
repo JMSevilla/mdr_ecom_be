@@ -168,3 +168,15 @@ class BusinessOwnerController:
         return Response({
             "message": GeneralParams.field_check_code_inputs
         }, status=status.HTTP_200_OK)
+
+
+    @api_view(['GET'])
+    def findAllBo(request, email):
+        GeneralHelper.Slug(
+            'GET',
+            'fetch-bo',
+            email
+        )
+        return Response({
+            "message": GeneralParams.field_fetching_bo
+        }, status=status.HTTP_200_OK)

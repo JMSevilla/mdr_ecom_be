@@ -21,19 +21,35 @@ class ProjectController:
     def create_project(request):
         if request.method == 'POST':
             collection = {
-                "projectname" : request.POST.get('projectname')
+                "projectname" : request.POST.get('projectname'),
+                "projectdetails" : request.POST.get('projectdetails'),
+                "projectfeatures" : request.POST.get('projectfeatures'),
+                "projectcategory" : request.POST.get('projectcategory'),
+                "projectprice" : request.POST.get('projectprice'),
+                "projecttype" : request.POST.get('projecttype'),
+                "email" : request.POST.get('email')
             }
-            # GeneralHelper.Slug(
-            #     'POST',
-            #     'api/project-entry',
-            #     collection
-            # )
-            # if GeneralParams.field_success_Project_entry == "success_bo_registration":
-            #     return Response({"message": GeneralParams.field_success_Project_entry}, status=status.HTTP_200_OK)
-            # else:
-            #     return Response({
-            #         "message": GeneralParams.field_success_Project_entry
-            #     }, status=status.HTTP_200_OK)
-            return Response({
-                "message": collection
-            }, status=status.HTTP_200_OK)
+            GeneralHelper.Slug(
+                'POST',
+                'api/project-entry',
+                collection
+            )
+            if GeneralParams.field_success_Project_entry == "success_bo_registration":
+                return Response({"message": GeneralParams.field_success_Project_entry}, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    "message": GeneralParams.field_success_Project_entry
+                }, status=status.HTTP_200_OK)
+        return Response({
+            "message": collection
+        }, status=status.HTTP_200_OK)
+
+    @api_view(['GET'])
+    def __fetch_project__(request, email):
+        GeneralHelper.Slug(
+            'GET',
+            'fetch-project',
+            email
+        )
+        return Response({"data" : GeneralParams.field_fetching_project},
+        status=status.HTTP_200_OK)
