@@ -177,6 +177,4 @@ class BusinessOwnerController:
             'fetch-bo',
             email
         )
-        return Response({
-            "message": GeneralParams.field_fetching_bo
-        }, status=status.HTTP_200_OK)
+        return Response(GeneralParams.field_fetching_bo, status=status.HTTP_200_OK)
