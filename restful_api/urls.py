@@ -1,6 +1,7 @@
 from django.urls import re_path, path
 from restful_api.Controller.BusinessOwner import BOController, ProjectController
 from restful_api.Controller.Service import LoginController, TokenController
+from restful_api.Controller.Service.Contact import ContactController
 
 urlpatterns = [
     re_path(
@@ -31,5 +32,6 @@ urlpatterns = [
             BOController.BusinessOwnerController.findAllBo),
     re_path(r'^api/applogin$', LoginController.login),
     re_path(r'^api/get-token/$',
-            TokenController.TokenizationController.tokenIdentify)
+            TokenController.TokenizationController.tokenIdentify),
+    re_path(r'^api/send-message/contactus$', ContactController.ContactController.sendMessage)
 ]

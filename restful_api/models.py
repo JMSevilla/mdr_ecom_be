@@ -109,3 +109,9 @@ class Administrator(models.Model):
     imgURL = models.CharField(max_length=255, blank=False, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class ContactUs(models.Model):
+    fullname = models.CharField(max_length=255, blank=False, default='')
+    email = models.EmailField()
+    subject = models.CharField(max_length=150, blank=False, default='')
+    message = models.TextField()
