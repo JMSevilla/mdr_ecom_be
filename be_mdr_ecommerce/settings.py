@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -95,15 +96,19 @@ WSGI_APPLICATION = 'be_mdr_ecommerce.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'dalpeb0ci9407a',
+#         'USER': 'akdfcregazxmro',
+#         'PASSWORD': '6d66705e9f4294ee09824c9a7d0bfcc2dca63e1c394e2c519a5232d1eb6f153b',
+#         'HOST': 'ec2-3-223-242-224.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dalpeb0ci9407a',
-        'USER': 'akdfcregazxmro',
-        'PASSWORD': '6d66705e9f4294ee09824c9a7d0bfcc2dca63e1c394e2c519a5232d1eb6f153b',
-        'HOST': 'ec2-3-223-242-224.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default='postgres://akdfcregazxmro:6d66705e9f4294ee09824c9a7d0bfcc2dca63e1c394e2c519a5232d1eb6f153b@ec2-3-223-242-224.compute-1.amazonaws.com:5432/dalpeb0ci9407a')
 }
 
 
