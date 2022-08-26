@@ -130,6 +130,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'https://rocky-savannah-36810.herokuapp.com',
+    '127.0.0.1'
+]
+
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
