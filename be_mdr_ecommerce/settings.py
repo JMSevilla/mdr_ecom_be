@@ -58,7 +58,8 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8081',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://modernresolve.netlify.app'
 )
 
 ROOT_URLCONF = 'be_mdr_ecommerce.urls'
