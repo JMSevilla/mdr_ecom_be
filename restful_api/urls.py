@@ -1,5 +1,7 @@
 from django.urls import re_path, path
 from restful_api.Controller.BusinessOwner import BOController, ProjectController
+from restful_api.Controller.Service import LoginController, TokenController
+from restful_api.Controller.Service.Contact import ContactController
 
 urlpatterns = [
     re_path(
@@ -18,13 +20,18 @@ urlpatterns = [
     re_path(r'^api/check-email-verification/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
             BOController.BusinessOwnerController.business_verify_email),
     re_path(r'^api/business-update-with-send/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
-            BOController.BusinessOwnerController.business_update_with_sendemail),   
+            BOController.BusinessOwnerController.business_update_with_sendemail),
     re_path(r'^api/compare-verification-code/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
-    BOController.BusinessOwnerController.compare_verification_code),
-    re_path(r'^api/project-creation/$', ProjectController.ProjectController.create_project),
-    #fetching api project and business owner 
+            BOController.BusinessOwnerController.compare_verification_code),
+    re_path(r'^api/project-creation/$',
+            ProjectController.ProjectController.create_project),
+    # fetching api project and business owner
     re_path(r'^api/getall-projectbyemail/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
-    ProjectController.ProjectController.__fetch_project__),
+            ProjectController.ProjectController.__fetch_project__),
     re_path(r'^api/getall-businessbyemail/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
-    BOController.BusinessOwnerController.findAllBo)
+            BOController.BusinessOwnerController.findAllBo),
+    re_path(r'^api/applogin$', LoginController.login),
+    re_path(r'^api/get-token/$',
+            TokenController.TokenizationController.tokenIdentify),
+    re_path(r'^api/send-message/contactus$', ContactController.ContactController.sendMessage)
 ]
