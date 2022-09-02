@@ -134,7 +134,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ALLOWED_HOSTS = [
     '0.0.0.0',
     'rocky-savannah-36810.herokuapp.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'localhost',
 ]
 
 PASSWORD_HASHERS = [

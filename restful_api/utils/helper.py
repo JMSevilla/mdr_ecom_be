@@ -26,6 +26,7 @@ class GeneralParams:
     field_login_lastId = 0
     field_token_tokenresult = []
     field_token_rebase = []
+    field_adminchecker_message = ''
 
 
 class GeneralHelper:
@@ -48,6 +49,8 @@ class GeneralHelper:
                     return GeneralHelper.__init__tokenidentify(params)
                 elif condition == 'api/get-users-info':
                     return GeneralHelper.__init__getcurrent_user(params)
+                elif condition == 'api/check-admin-user':
+                    return GeneralHelper.__init_check_admin(params)
             case 'POST':
                 if condition == 'api/business-owner-registration':
                     return GeneralHelper.__init__registration_businessowner(params)
@@ -231,6 +234,17 @@ class GeneralHelper:
             return GeneralParams.field_token_rebase
         else:
             return GeneralParams.field_token_rebase
+    
+    def __init_check_admin(params):
+        admincount = Administrator.objects.filter(
+            userType=params
+        ).values()
+        if admincount.count() > 0:
+            GeneralParams.field_adminchecker_message = "exist"
+            return GeneralParams.field_adminchecker_message
+        else:
+            GeneralParams.field_adminchecker_message = "not_exist"
+            return GeneralParams.field_adminchecker_message
 
 
 class SystemDecryptor:
