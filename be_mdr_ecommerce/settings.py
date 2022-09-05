@@ -86,16 +86,16 @@ WSGI_APPLICATION = 'be_mdr_ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'db_mdr_ecom',
-#         'USER': 'postgres',
-#         'PASSWORD': '5418873',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_mdr_ecom',
+        'USER': 'postgres',
+        'PASSWORD': '5418873',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -108,9 +108,9 @@ WSGI_APPLICATION = 'be_mdr_ecommerce.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(default='postgres://akdfcregazxmro:6d66705e9f4294ee09824c9a7d0bfcc2dca63e1c394e2c519a5232d1eb6f153b@ec2-3-223-242-224.compute-1.amazonaws.com:5432/dalpeb0ci9407a')
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default='postgres://akdfcregazxmro:6d66705e9f4294ee09824c9a7d0bfcc2dca63e1c394e2c519a5232d1eb6f153b@ec2-3-223-242-224.compute-1.amazonaws.com:5432/dalpeb0ci9407a')
+# }
 
 
 # Password validation

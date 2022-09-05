@@ -34,6 +34,10 @@ urlpatterns = [
     re_path(r'^api/applogin$', LoginController.login),
     re_path(r'^api/get-token/$',
             TokenController.TokenizationController.tokenIdentify),
-    re_path(r'^api/send-message/contactus$', ContactController.ContactController.sendMessage),
-    re_path(r'^api/check-admin$', AdminController.AdministratorController.check_admin_controller)
+    re_path(r'^api/send-message/contactus$',
+            ContactController.ContactController.sendMessage),
+    re_path(r'^api/check-admin$',
+            AdminController.AdministratorController.check_admin_controller),
+    re_path(r'^api/admin-registration-entry$',
+            AdminController.AdministratorController.admin_registration_controller)
 ]
