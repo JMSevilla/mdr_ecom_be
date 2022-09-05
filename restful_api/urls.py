@@ -2,6 +2,7 @@ from django.urls import re_path, path
 from restful_api.Controller.BusinessOwner import BOController, ProjectController
 from restful_api.Controller.Service import LoginController, TokenController
 from restful_api.Controller.Service.Contact import ContactController
+from restful_api.Controller.Administrator import AdminController
 
 urlpatterns = [
     re_path(
@@ -33,5 +34,10 @@ urlpatterns = [
     re_path(r'^api/applogin$', LoginController.login),
     re_path(r'^api/get-token/$',
             TokenController.TokenizationController.tokenIdentify),
-    re_path(r'^api/send-message/contactus$', ContactController.ContactController.sendMessage)
+    re_path(r'^api/send-message/contactus$',
+            ContactController.ContactController.sendMessage),
+    re_path(r'^api/check-admin$',
+            AdminController.AdministratorController.check_admin_controller),
+    re_path(r'^api/admin-registration-entry$',
+            AdminController.AdministratorController.admin_registration_controller)
 ]

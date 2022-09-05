@@ -26,6 +26,8 @@ class GeneralParams:
     field_login_lastId = 0
     field_token_tokenresult = []
     field_token_rebase = []
+    field_adminchecker_message = ''
+    field_save_adminreg_message = ''
 
 
 class GeneralHelper:
@@ -48,6 +50,8 @@ class GeneralHelper:
                     return GeneralHelper.__init__tokenidentify(params)
                 elif condition == 'api/get-users-info':
                     return GeneralHelper.__init__getcurrent_user(params)
+                elif condition == 'api/check-admin-user':
+                    return GeneralHelper.__init_check_admin(params)
             case 'POST':
                 if condition == 'api/business-owner-registration':
                     return GeneralHelper.__init__registration_businessowner(params)
@@ -59,6 +63,8 @@ class GeneralHelper:
                     return GeneralHelper.__init__findUsers(params)
                 elif condition == 'api/gettoken':
                     return GeneralHelper.__init__checktoken(params)
+                elif condition == 'admin/registration':
+                    return GeneralHelper.__init_adminregistration_entry(params)
             case 'PUT':
                 if condition == 'api/business-update-counts':
                     return GeneralHelper.__init__update_counts(params)
@@ -125,6 +131,20 @@ class GeneralHelper:
         account_verification.save()
         GeneralParams.field_verification_bo = "success_vc_entry"
         return GeneralParams.field_verification_bo
+
+    def __init_adminregistration_entry(params):
+        admin_account = Administrator()
+        admin_account.firstname = params['firstname']
+        admin_account.lastname = params['lastname']
+        admin_account.email = params['email']
+        admin_account.password = params['password']
+        admin_account.userType = "1"
+        admin_account.isLock = "0"
+        admin_account.isverified = "1"
+        admin_account.imgURL = "None"
+        admin_account.save()
+        GeneralParams.field_save_adminreg_message = "success_registration_admin"
+        return GeneralParams.field_save_adminreg_message
 
     def __init__vrfy_check_counts(params):
         scan_counts = AccountVerification_1.objects.filter(
@@ -231,6 +251,17 @@ class GeneralHelper:
             return GeneralParams.field_token_rebase
         else:
             return GeneralParams.field_token_rebase
+
+    def __init_check_admin(params):
+        admincount = Administrator.objects.filter(
+            userType=params
+        ).values()
+        if admincount.count() > 0:
+            GeneralParams.field_adminchecker_message = "exist"
+            return GeneralParams.field_adminchecker_message
+        else:
+            GeneralParams.field_adminchecker_message = "not_exist"
+            return GeneralParams.field_adminchecker_message
 
 
 class SystemDecryptor:
