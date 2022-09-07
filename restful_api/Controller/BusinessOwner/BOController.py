@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from rest_framework import status
+from restful_api.utils.Configuration.emailconfig import EmailConfig, EmailConfigResponse
 from restful_api.utils.helper import GeneralParams
 from restful_api.utils.helper import GeneralHelper
 from rest_framework.decorators import api_view
@@ -169,7 +170,6 @@ class BusinessOwnerController:
             "message": GeneralParams.field_check_code_inputs
         }, status=status.HTTP_200_OK)
 
-
     @api_view(['GET'])
     def findAllBo(request, email):
         GeneralHelper.Slug(
@@ -178,3 +178,11 @@ class BusinessOwnerController:
             email
         )
         return Response(GeneralParams.field_fetching_bo, status=status.HTTP_200_OK)
+
+    @api_view(['GET'])
+    def configAPI_checkemail(request, email):
+        if request.method == 'GET':
+            EmailConfig.config_checkemail(
+                email
+            )
+            return Response({"message": EmailConfigResponse.email_message}, status=status.HTTP_200_OK)
