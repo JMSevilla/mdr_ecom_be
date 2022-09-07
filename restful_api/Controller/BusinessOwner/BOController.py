@@ -117,18 +117,21 @@ class BusinessOwnerController:
                 'business-verification-check-counts',
                 email
             )
-            BusinessOwnerController.send_email_helper(email, code)
-            collective = {
-                "email": email,
-                "code": code
-            }
-            GeneralHelper.Slug(
-                'PUT',
-                'api/business-update-counts',
-                collective
-            )
-            return Response({"message": "success"}, status=status.HTTP_200_OK)
-        return Response({"message": GeneralParams.field_check_counts.count()}, status=status.HTTP_200_OK)
+            if GeneralParams.field_check_counts == 'exceed_email':
+                return Response({"message": "exceed_email"}, status=status.HTTP_200_OK)
+            else:
+                BusinessOwnerController.send_email_helper(email, code)
+                collective = {
+                    "email": email,
+                    "code": code
+                }
+                GeneralHelper.Slug(
+                    'PUT',
+                    'api/business-update-counts',
+                    collective
+                )
+                return Response({"message": GeneralParams.field_check_counts}, status=status.HTTP_200_OK)
+        return Response({"message": GeneralParams.field_check_counts}, status=status.HTTP_200_OK)
 
     def send_email_helper(email, code):
         s = smtplib.SMTP('smtp.gmail.com', 587)
@@ -168,7 +171,6 @@ class BusinessOwnerController:
         return Response({
             "message": GeneralParams.field_check_code_inputs
         }, status=status.HTTP_200_OK)
-
 
     @api_view(['GET'])
     def findAllBo(request, email):
