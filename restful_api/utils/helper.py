@@ -149,8 +149,11 @@ class GeneralHelper:
     def __init__vrfy_check_counts(params):
         scan_counts = AccountVerification_1.objects.filter(
             client_email=params
-        ).filter(sent_count=3).values()
-        GeneralParams.field_check_counts = scan_counts
+        ).filter(sent_count__gte=3).values()
+        if scan_counts.count() > 0:
+            GeneralParams.field_check_counts = "exceed_email"
+            return GeneralParams.field_check_counts
+        GeneralParams.field_check_counts = "success"
         return GeneralParams.field_check_counts
 
     def __init__update_counts(params):
