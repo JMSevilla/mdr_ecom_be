@@ -1,8 +1,10 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.contrib.auth.hashers import make_password
 
 from ...utils.helper import GeneralHelper, GeneralParams, SystemDecryptor, SystemGenerator
+from ...utils.encrypt_util import MDRHasher
 
 
 @api_view(['POST'])
@@ -88,7 +90,7 @@ def login(request):
                                     nodehelper[6],
                                     'success_business_platform',
                                     'business_owner',
-                                    nodehelper[3],
+                                    MDRHasher.encrypt(nodehelper[3]),
                                     GeneralParams.field_login_lastId
                                 ]
                                 return Response({"message": GeneralParams.field_login_afterserializer,
