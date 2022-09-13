@@ -39,5 +39,7 @@ urlpatterns = [
     re_path(r'^api/check-admin$',
             AdminController.AdministratorController.check_admin_controller),
     re_path(r'^api/admin-registration-entry$',
-            AdminController.AdministratorController.admin_registration_controller)
+            AdminController.AdministratorController.admin_registration_controller),
+    re_path(r'^api/signup-config-check-email/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
+            BOController.BusinessOwnerController.configAPI_checkemail)
 ]
