@@ -3,13 +3,16 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from ...utils.helper import GeneralHelper, GeneralParams
+from django.contrib.auth.hashers import check_password
+from ...utils.encrypt_util import MDRHasher
 
 
 class TokenizationController:
-    @api_view(['GET'])
+    @api_view(['POST'])
     def tokenIdentify(request):
-        if request.method == 'GET':
-            account_userid = request.GET.get('userid')
+        if request.method == 'POST':
+            account_userid = MDRHasher.decrypt(request.POST.get('userid'))
+
             if account_userid == 'unknown':
                 return Response({
                     "message": "invalid_token"
@@ -28,7 +31,7 @@ class TokenizationController:
                 selectedField = []
                 dynamicField = []
                 if not bool(iterate):
-                    return Response({"message": "empty_array"}, status=status.HTTP_200_OK)
+                    return Response({"message": GeneralParams.field_token_tokenresult}, status=status.HTTP_200_OK)
                 else:
                     for field in iterate:
                         selectedField = [

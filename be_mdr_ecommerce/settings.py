@@ -151,6 +151,8 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.CryptPasswordHasher',
 ]
 
+ENCRYPT_KEY = b'tmzHcYuvLUhxjcxZ4k_iqfCx-HUq6PCvdbXr4vOC5B4='
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587

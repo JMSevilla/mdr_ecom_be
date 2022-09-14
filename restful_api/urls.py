@@ -32,7 +32,7 @@ urlpatterns = [
     re_path(r'^api/getall-businessbyemail/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
             BOController.BusinessOwnerController.findAllBo),
     re_path(r'^api/applogin$', LoginController.login),
-    re_path(r'^api/get-token/$',
+    re_path(r'^api/get-token$',
             TokenController.TokenizationController.tokenIdentify),
     re_path(r'^api/send-message/contactus$',
             ContactController.ContactController.sendMessage),
