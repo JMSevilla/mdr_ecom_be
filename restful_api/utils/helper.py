@@ -137,7 +137,7 @@ class GeneralHelper:
         admin_account.firstname = params['firstname']
         admin_account.lastname = params['lastname']
         admin_account.email = params['email']
-        admin_account.password = params['password']
+        admin_account.password = make_password(params['password'])
         admin_account.userType = "1"
         admin_account.isLock = "0"
         admin_account.isverified = "1"
@@ -211,11 +211,18 @@ class GeneralHelper:
         return GeneralParams.field_fetching_bo
 
     def __init__findUsers(params):
-        if params['credential_type'] == 'bo':
-            bo_filtered = BusinessOwner.objects.filter(
-                email=params['email']
-            ).values()
+        bo_filtered = BusinessOwner.objects.filter(
+            email=params['email']
+        ).values()
+        admin_filtered = Administrator.objects.filter(
+            email=params['email']
+        ).values()
+        # other filter for next user login will add here...
+        if bo_filtered.count() > 0:
             GeneralParams.field_login_findUser = bo_filtered
+            return GeneralParams.field_login_findUser
+        elif admin_filtered.count() > 0:
+            GeneralParams.field_login_findUser = admin_filtered
             return GeneralParams.field_login_findUser
         return GeneralParams.field_login_findUser
 
