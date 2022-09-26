@@ -45,9 +45,21 @@ class BusinessOwnerSerializerTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         print('passed: verify_record', response.status_code)
 
-    def test_business_update_with_sendemail_api(self):
-        response = self.client.put(
-            '/api/business-update-with-send/miggysvll@gmail.com/testcode123/'
-        )
+    # def test_business_update_with_sendemail_api(self):
+    #     response = self.client.put(
+    #         '/api/business-update-with-send/miggysvll@gmail.com/testcode123/'
+    #     )
+    #     self.assertEqual(response.status_code, 200)
+    #     print('passed: update_with_sendemail', response.status_code)
+
+    def test_check_email_api(self):
+        response = self.client.get(
+            '/api/check-email-counts/miggysvll@gmail.com/testcode123/')
         self.assertEqual(response.status_code, 200)
-        print('passed: update_with_sendemail', response.status_code)
+        print('passed: check_email')
+
+    def test_comparing_code_api(self):
+        response = self.client.put(
+            '/api/compare-verification-code/miggysvll@gmail.com/testcode123/')
+        self.assertEqual(response.status_code, 200)
+        print('passed : comparing code')
