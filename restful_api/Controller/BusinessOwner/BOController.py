@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
-
-from rest_framework import status
 from restful_api.utils.Configuration.emailconfig import EmailConfig, EmailConfigResponse
 from restful_api.utils.helper import GeneralParams
 from restful_api.utils.helper import GeneralHelper

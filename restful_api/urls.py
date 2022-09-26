@@ -3,6 +3,7 @@ from restful_api.Controller.BusinessOwner import BOController, ProjectController
 from restful_api.Controller.Service import LoginController, TokenController
 from restful_api.Controller.Service.Contact import ContactController
 from restful_api.Controller.Administrator import AdminController
+from restful_api.Controller.Student.studentController import StudentController
 
 urlpatterns = [
     re_path(
@@ -41,5 +42,11 @@ urlpatterns = [
     re_path(r'^api/admin-registration-entry$',
             AdminController.AdministratorController.admin_registration_controller),
     re_path(r'^api/signup-config-check-email/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
-            BOController.BusinessOwnerController.configAPI_checkemail)
+            BOController.BusinessOwnerController.configAPI_checkemail),
+    re_path(
+        r'^api/student-check-email/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
+        StudentController.studentCheckEmail),
+    re_path(
+        r'^api/student-verification-counts-before-update/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
+        StudentController.student_verification_checkcounts)
 ]
