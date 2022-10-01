@@ -2,7 +2,7 @@
 import smtplib
 from xml.dom import ValidationErr
 from django.test import TestCase
-from restful_api.models import AccountVerification_1, Administrator, BusinessOwner
+from restful_api.models import AccountVerification_1, Administrator, BusinessOwner, Student
 from django.conf import settings
 from django.db.models import F
 
@@ -138,3 +138,13 @@ class SendingEmailLibraryTestcase(TestCase):
         # s.quit()
         # print('PASSED RESULT : sent_email')
         pass
+
+
+class StudentModelsTestcase(TestCase):
+    def test_student_modelEntity(self):
+        stud_accounts = Student.objects.filter(
+            email="miggysvll@gmail.com"
+        ).values()
+        if stud_accounts.count() > 0:
+            self.assertTrue(stud_accounts)
+        self.assertTrue('success')

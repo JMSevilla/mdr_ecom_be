@@ -51,3 +51,8 @@ class BusinessOwnerSerializerTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         print('passed: update_with_sendemail', response.status_code)
+
+
+class StudentSerializerTestcase(TestCase):
+    def test_student_checkEmail_api(self):
+        return
