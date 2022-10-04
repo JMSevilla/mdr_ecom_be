@@ -67,7 +67,8 @@ def login(request):
                                     'success_business_platform',
                                     'business_owner',
                                     nodehelper[3],
-                                    GeneralParams.field_login_lastId
+                                    GeneralParams.field_login_lastId,
+                                    collection['token']
                                 ]
                                 return Response({"message": GeneralParams.field_login_afterserializer,
                                                  'response_data': responseCollection}, status=status.HTTP_200_OK)
@@ -89,7 +90,8 @@ def login(request):
                                 'success_business_platform',
                                 'business_owner',
                                 MDRHasher.encrypt(nodehelper[3]),
-                                GeneralParams.field_login_lastId
+                                GeneralParams.field_login_lastId,
+                                collection['token']
                             ]
                             return Response({"message": GeneralParams.field_login_afterserializer,
                                              'response_data': responseCollection}, status=status.HTTP_200_OK)
@@ -121,7 +123,8 @@ def login(request):
                                     'success_admin_platform',
                                     'admin_dev',
                                     nodehelper[3],
-                                    GeneralParams.field_login_lastId
+                                    GeneralParams.field_login_lastId,
+                                    collection['token']
                                 ]
                                 return Response({"message": GeneralParams.field_login_afterserializer,
                                                  'response_data': responseCollection}, status=status.HTTP_200_OK)
@@ -143,7 +146,8 @@ def login(request):
                                 'success_admin_platform',
                                 'admin_dev',
                                 MDRHasher.encrypt(nodehelper[3]),
-                                GeneralParams.field_login_lastId
+                                GeneralParams.field_login_lastId,
+                                collection['token']
                             ]
                             return Response({"message": GeneralParams.field_login_afterserializer,
                                              'response_data': responseCollection}, status=status.HTTP_200_OK)

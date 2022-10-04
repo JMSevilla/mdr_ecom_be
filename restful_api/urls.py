@@ -4,6 +4,7 @@ from restful_api.Controller.Service import LoginController, TokenController
 from restful_api.Controller.Service.Contact import ContactController
 from restful_api.Controller.Administrator import AdminController
 from restful_api.Controller.Student.studentController import StudentController
+from restful_api.Controller.Service.SignoutController import SignoutController
 
 urlpatterns = [
     re_path(
@@ -48,5 +49,10 @@ urlpatterns = [
         StudentController.studentCheckEmail),
     re_path(
         r'^api/student-verification-counts-before-update/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
-        StudentController.student_verification_checkcounts)
+        StudentController.student_verification_checkcounts),
+        re_path(
+                # r'^api/signout/(?P<userid>\d+)/(?P<token>[\w\-]+)/$',
+                r'^api/signout/$',
+                SignoutController.signout
+        )
 ]
