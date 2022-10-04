@@ -40,24 +40,18 @@ class TokenizationController:
                         ]
                     if selectedField[0] == '1':
                         if selectedField[1] == 'business_platform':
-                            GeneralHelper.Slug(
-                                'GET',
-                                'api/get-users-info',
-                                account_userid
-                            )
-                            for dynamicFieldSelected in GeneralParams.field_token_rebase:
-                                dynamicField = [
-                                    dynamicFieldSelected['firstname'],
-                                    dynamicFieldSelected['lastname'],
-                                    dynamicFieldSelected['email'],
-                                    dynamicFieldSelected['imgURL'],
-                                    dynamicFieldSelected['id'],
-                                    selectedField[1],
-                                    'token_exist_business_platform'
-                                ]
                             return Response({
-                                "message": dynamicField
+                                "data": GeneralParams.field_token_tokenresult
                             }, status=status.HTTP_200_OK)
-                return Response({
-                    "data": GeneralParams.field_token_tokenresult
-                }, status=status.HTTP_200_OK)
+                        elif selectedField[1] == 'admin_platform':
+                            return Response({
+                                "data": GeneralParams.field_token_tokenresult
+                            }, status=status.HTTP_200_OK)
+                    else:
+                        return Response({
+                        "data": "invalid_token"
+                    }, status=status.HTTP_200_OK)
+        return Response({
+                        "data": "invalid_request"
+                    }, status=status.HTTP_200_OK)
+                
