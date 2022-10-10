@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
-
-from rest_framework import status
+from restful_api.utils.Configuration.emailconfig import EmailConfig, EmailConfigResponse
 from restful_api.utils.helper import GeneralParams
 from restful_api.utils.helper import GeneralHelper
 from rest_framework.decorators import api_view
@@ -117,18 +116,21 @@ class BusinessOwnerController:
                 'business-verification-check-counts',
                 email
             )
-            BusinessOwnerController.send_email_helper(email, code)
-            collective = {
-                "email": email,
-                "code": code
-            }
-            GeneralHelper.Slug(
-                'PUT',
-                'api/business-update-counts',
-                collective
-            )
-            return Response({"message": "success"}, status=status.HTTP_200_OK)
-        return Response({"message": GeneralParams.field_check_counts.count()}, status=status.HTTP_200_OK)
+            if GeneralParams.field_check_counts == 'exceed_email':
+                return Response({"message": "exceed_email"}, status=status.HTTP_200_OK)
+            else:
+                BusinessOwnerController.send_email_helper(email, code)
+                collective = {
+                    "email": email,
+                    "code": code
+                }
+                GeneralHelper.Slug(
+                    'PUT',
+                    'api/business-update-counts',
+                    collective
+                )
+                return Response({"message": GeneralParams.field_check_counts}, status=status.HTTP_200_OK)
+        return Response({"message": GeneralParams.field_check_counts}, status=status.HTTP_200_OK)
 
     def send_email_helper(email, code):
         s = smtplib.SMTP('smtp.gmail.com', 587)
@@ -169,7 +171,6 @@ class BusinessOwnerController:
             "message": GeneralParams.field_check_code_inputs
         }, status=status.HTTP_200_OK)
 
-
     @api_view(['GET'])
     def findAllBo(request, email):
         GeneralHelper.Slug(
@@ -178,3 +179,11 @@ class BusinessOwnerController:
             email
         )
         return Response(GeneralParams.field_fetching_bo, status=status.HTTP_200_OK)
+
+    @api_view(['GET'])
+    def configAPI_checkemail(request, email):
+        if request.method == 'GET':
+            EmailConfig.config_checkemail(
+                email
+            )
+            return Response({"message": EmailConfigResponse.email_message}, status=status.HTTP_200_OK)

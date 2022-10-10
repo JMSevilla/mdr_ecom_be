@@ -1,0 +1,7 @@
+{
+    "python.testing.pytestArgs": [
+        "be_mdr_ecommerce"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

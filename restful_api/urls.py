@@ -2,6 +2,9 @@ from django.urls import re_path, path
 from restful_api.Controller.BusinessOwner import BOController, ProjectController
 from restful_api.Controller.Service import LoginController, TokenController
 from restful_api.Controller.Service.Contact import ContactController
+from restful_api.Controller.Administrator import AdminController
+from restful_api.Controller.Student.studentController import StudentController
+from restful_api.Controller.Service.SignoutController import SignoutController
 
 urlpatterns = [
     re_path(
@@ -31,7 +34,33 @@ urlpatterns = [
     re_path(r'^api/getall-businessbyemail/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
             BOController.BusinessOwnerController.findAllBo),
     re_path(r'^api/applogin$', LoginController.login),
-    re_path(r'^api/get-token/$',
+    re_path(r'^api/get-token$',
             TokenController.TokenizationController.tokenIdentify),
-    re_path(r'^api/send-message/contactus$', ContactController.ContactController.sendMessage)
+    re_path(r'^api/send-message/contactus$',
+            ContactController.ContactController.sendMessage),
+    re_path(r'^api/check-admin$',
+            AdminController.AdministratorController.check_admin_controller),
+    re_path(r'^api/admin-registration-entry$',
+            AdminController.AdministratorController.admin_registration_controller),
+    re_path(r'^api/signup-config-check-email/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
+            BOController.BusinessOwnerController.configAPI_checkemail),
+    re_path(
+        r'^api/student-check-email/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
+        StudentController.studentCheckEmail),
+    re_path(
+        r'^api/student-verification-counts-before-update/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
+        StudentController.student_verification_checkcounts),
+    re_path(
+        # r'^api/signout/(?P<userid>\d+)/(?P<token>[\w\-]+)/$',
+        r'^api/signout/$',
+        SignoutController.signout
+    ),
+    re_path(r'^api/student-check-verification/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
+            StudentController.student_verify_email),
+    re_path(r'^api/student-verification-entry$',
+            StudentController.student_verification_record),
+    re_path(r'^api/student-verification-send-email/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
+            StudentController.student_verification),
+    re_path(r'^api/student-verification-sent-count-update/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
+            StudentController.student_update_with_sendemail)
 ]
