@@ -235,7 +235,7 @@ class GeneralHelper:
 
     def __init__tokenidentify(params):
         tokenize = Tokenization.objects.filter(
-            userID=params
+            userID=params, isvalid='1'
         ).values()
         GeneralParams.field_token_tokenresult = tokenize
         return GeneralParams.field_token_tokenresult

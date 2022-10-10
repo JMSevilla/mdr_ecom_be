@@ -66,7 +66,7 @@ def login(request):
                                     nodehelper[6],
                                     'success_business_platform',
                                     'business_owner',
-                                    nodehelper[3],
+                                    MDRHasher.encrypt(nodehelper[3]),
                                     GeneralParams.field_login_lastId,
                                     collection['token']
                                 ]
@@ -122,7 +122,7 @@ def login(request):
                                     nodehelper[6],
                                     'success_admin_platform',
                                     'admin_dev',
-                                    nodehelper[3],
+                                    MDRHasher.encrypt(nodehelper[3]),
                                     GeneralParams.field_login_lastId,
                                     collection['token']
                                 ]

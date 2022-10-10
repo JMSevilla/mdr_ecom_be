@@ -49,9 +49,8 @@ class TokenizationController:
                             }, status=status.HTTP_200_OK)
                     else:
                         return Response({
-                        "data": "invalid_token"
-                    }, status=status.HTTP_200_OK)
+                            "data": "invalid_token"
+                        }, status=status.HTTP_200_OK)
         return Response({
                         "data": "invalid_request"
-                    }, status=status.HTTP_200_OK)
-                
+                        }, status=status.HTTP_200_OK)
