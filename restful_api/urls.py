@@ -62,5 +62,6 @@ urlpatterns = [
     re_path(r'^api/student-verification-send-email/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
             StudentController.student_verification),
     re_path(r'^api/student-verification-sent-count-update/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
-            StudentController.student_update_with_sendemail)
+            StudentController.student_update_with_sendemail),
+        re_path(r'^api/tokenization/check-secure-route$', TokenController.route_token_checker)
 ]

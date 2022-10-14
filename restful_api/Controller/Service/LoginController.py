@@ -47,8 +47,29 @@ def login(request):
                                 tokerow = [
                                     tokenode['isvalid']
                                 ]
-                            if tokerow[0] == '1':
-                                return Response({"message": "invalid"}, status=status.HTTP_200_OK)
+                            if tokerow[0] == '0':
+                                collection = {
+                                    "userID": nodehelper[3],
+                                    "lastRoute": "business_platform",
+                                    "token": SystemGenerator.job(50)
+                                }
+                                GeneralHelper.TokenSlug(
+                                    'POST',
+                                    'tokenQueryBuild',
+                                    collection
+                                )
+                                responseCollection = [
+                                    nodehelper[4],
+                                    nodehelper[5],
+                                    nodehelper[6],
+                                    'success_business_platform',
+                                    'business_owner',
+                                    MDRHasher.encrypt(nodehelper[3]),
+                                    GeneralParams.field_login_lastId,
+                                    collection['token']
+                                ]
+                                return Response({"message": GeneralParams.field_login_afterserializer,
+                                                 'response_data': responseCollection}, status=status.HTTP_200_OK)
                             else:
                                 collection = {
                                     "userID": nodehelper[3],
@@ -103,8 +124,29 @@ def login(request):
                                 tokerow = [
                                     tokenode['isvalid']
                                 ]
-                            if tokerow[0] == '1':
-                                return Response({"message": "invalid"}, status=status.HTTP_200_OK)
+                            if tokerow[0] == '0':
+                                collection = {
+                                    "userID": nodehelper[3],
+                                    "lastRoute": "admin_platform",
+                                    "token": SystemGenerator.job(50)
+                                }
+                                GeneralHelper.TokenSlug(
+                                    'POST',
+                                    'tokenQueryBuild',
+                                    collection
+                                )
+                                responseCollection = [
+                                    nodehelper[4],
+                                    nodehelper[5],
+                                    nodehelper[6],
+                                    'success_admin_platform',
+                                    'admin_dev',
+                                    MDRHasher.encrypt(nodehelper[3]),
+                                    GeneralParams.field_login_lastId,
+                                    MDRHasher.encrypt(collection['token'])
+                                ]
+                                return Response({"message": GeneralParams.field_login_afterserializer,
+                                                 'response_data': responseCollection}, status=status.HTTP_200_OK)
                             else:
                                 collection = {
                                     "userID": nodehelper[3],
@@ -124,7 +166,7 @@ def login(request):
                                     'admin_dev',
                                     MDRHasher.encrypt(nodehelper[3]),
                                     GeneralParams.field_login_lastId,
-                                    collection['token']
+                                    MDRHasher.encrypt(collection['token'])
                                 ]
                                 return Response({"message": GeneralParams.field_login_afterserializer,
                                                  'response_data': responseCollection}, status=status.HTTP_200_OK)
@@ -147,7 +189,7 @@ def login(request):
                                 'admin_dev',
                                 MDRHasher.encrypt(nodehelper[3]),
                                 GeneralParams.field_login_lastId,
-                                collection['token']
+                                MDRHasher.encrypt(collection['token'])
                             ]
                             return Response({"message": GeneralParams.field_login_afterserializer,
                                              'response_data': responseCollection}, status=status.HTTP_200_OK)
