@@ -1,6 +1,6 @@
 import string
 import random
-from restful_api.models import Administrator, BusinessOwner, Student, Tokenization
+from restful_api.models import Administrator, BusinessOwner, Student, Tokenization, TrainingManagement_1
 from restful_api.models import Project
 from django.contrib.auth.hashers import make_password
 from restful_api.models import AccountVerification_1
@@ -28,6 +28,8 @@ class GeneralParams:
     field_token_rebase = []
     field_adminchecker_message = ''
     field_save_adminreg_message = ''
+    field_save_admin_training_message = ''
+    field_get_alltrainings = []
 
 
 class GeneralHelper:
@@ -52,6 +54,8 @@ class GeneralHelper:
                     return GeneralHelper.__init__getcurrent_user(params)
                 elif condition == 'api/check-admin-user':
                     return GeneralHelper.__init_check_admin(params)
+                elif condition == 'api/get-alltrainings':
+                    return GeneralHelper._init_getAllTraining()
             case 'POST':
                 if condition == 'api/business-owner-registration':
                     return GeneralHelper.__init__registration_businessowner(params)
@@ -65,6 +69,8 @@ class GeneralHelper:
                     return GeneralHelper.__init__checktoken(params)
                 elif condition == 'admin/registration':
                     return GeneralHelper.__init_adminregistration_entry(params)
+                elif condition == 'api/training-add':
+                    return GeneralHelper._init_addTraining(params)
             case 'PUT':
                 if condition == 'api/business-update-counts':
                     return GeneralHelper.__init__update_counts(params)
@@ -78,6 +84,26 @@ class GeneralHelper:
                     return QueryBuilder.tokenizationQueryBuild(snapshot)
 
     # entity functions
+
+    def _init_addTraining(params):
+        training = TrainingManagement_1()
+        training.trainingTitle = params['title']
+        training.trainingCategory = params['category']
+        training.trainingDescription = params['description']
+        training.trainingDays = params['days']
+        training.trainingImgURL = params['imgurl']
+        training.trainingStatus = params['status']
+        training.trainingLevel = params['level']
+        training.trainingProctor = params['proctor']
+        training.trainingCapacity = params['capacity']
+        training.save()
+        GeneralParams.field_save_admin_training_message = "success_training_add"
+        return GeneralParams.field_save_admin_training_message
+
+    def _init_getAllTraining():
+        getAll = TrainingManagement_1.objects.all().values()
+        GeneralParams.field_get_alltrainings = getAll
+        return GeneralParams.field_get_alltrainings
 
     def checkEmail(params):
         filtered = BusinessOwner.objects.filter(

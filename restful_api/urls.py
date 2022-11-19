@@ -5,6 +5,8 @@ from restful_api.Controller.Service.Contact import ContactController
 from restful_api.Controller.Administrator import AdminController
 from restful_api.Controller.Student.studentController import StudentController
 from restful_api.Controller.Service.SignoutController import SignoutController
+from restful_api.Controller.Product.ProductController import ProductsController
+from restful_api.Controller.Administrator.TrainingController import TrainingController
 
 urlpatterns = [
     re_path(
@@ -63,5 +65,12 @@ urlpatterns = [
             StudentController.student_verification),
     re_path(r'^api/student-verification-sent-count-update/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/(?P<code>[\w\-]+)/$',
             StudentController.student_update_with_sendemail),
-        re_path(r'^api/tokenization/check-secure-route$', TokenController.route_token_checker)
+        re_path(r'^api/tokenization/check-secure-route$', TokenController.route_token_checker),
+        re_path(r'^api/product-category/add$', ProductsController.addProjectCategories),
+        re_path(r'^api/product-category/all', ProductsController.getAllProjectCategories),
+        re_path(r'^api/product-category/delete-category/(\d+)/$', ProductsController.removeProjectCategories),
+        re_path(r'^api/administrator/training-add$', TrainingController.addTraining),
+        re_path(r'^api/get-all-trainings$', TrainingController.getAllTrainings),
+        re_path(r'^api/training-management/edit-trainings$', TrainingController.editTrainings),
+        re_path(r'^api/training-management/delete/(\d+)/$', TrainingController.removeTraining)
 ]

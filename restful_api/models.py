@@ -1,3 +1,4 @@
+from calendar import c
 from django.db import models
 
 # class Users(models.Model):
@@ -115,3 +116,54 @@ class ContactUs(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=150, blank=False, default='')
     message = models.TextField()
+
+class Products(models.Model):
+    productName = models.CharField(max_length=255, blank=False, default='')
+    productCategory = models.CharField(max_length=100, blank=False, default='')
+    productPrice = models.BigIntegerField()
+    productScale = models.CharField(max_length=100, blank=False, default='')
+    productDescription = models.CharField(max_length=255, blank=False, default='')
+    productTechStack = models.CharField(max_length=100, blank=False, default='')
+    productImageURL = models.CharField(max_length=255, blank=False, default='')
+    productFeatures = models.CharField(max_length=255, blank=False, default='')
+    isActive = models.CharField(max_length=1, blank=False, default='')
+    createdBy = models.CharField(max_length=100, blank=False, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class ProductCategories(models.Model):
+    categoryName = models.CharField(max_length=100, blank=False, default='')
+    isActive = models.CharField(max_length=1, blank=False, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class ProductProjectScales(models.Model):
+    projectScale = models.CharField(max_length=100, blank=False, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class ProductTechnologies(models.Model):
+    tech = models.CharField(max_length=100, blank=False, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class ProductFeatures(models.Model):
+    prodCategoryFKId = models.BigIntegerField()
+    prodScaleFKId = models.BigIntegerField()
+    productFeatureName = models.CharField(max_length=100, blank=False, default='')
+    isActive = models.CharField(max_length=1, blank=False, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class TrainingManagement_1(models.Model):
+    trainingTitle = models.CharField(max_length=100, blank=False, default='')
+    trainingCategory = models.CharField(max_length=100, blank=False, default='')
+    trainingDescription = models.CharField(max_length=255, blank=False, default='')
+    trainingDays = models.CharField(max_length=100, blank=False,default='')
+    trainingImgURL = models.CharField(max_length=255, blank=False, default='')
+    trainingStatus = models.CharField(max_length=255, blank=False, default='')
+    trainingLevel = models.CharField(max_length=255, blank=False, default='')
+    trainingProctor = models.CharField(max_length=100, blank=False, default='')
+    trainingCapacity = models.BigIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
