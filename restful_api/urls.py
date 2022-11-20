@@ -57,6 +57,10 @@ urlpatterns = [
         r'^api/signout/$',
         SignoutController.signout
     ),
+    re_path(r'^api/signout_bo/$',
+        SignoutController.signout),
+    re_path(r'^api/signout_st/$',
+        SignoutController.signout_st),
     re_path(r'^api/student-check-verification/(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',
             StudentController.student_verify_email),
     re_path(r'^api/student-verification-entry$',
