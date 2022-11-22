@@ -37,7 +37,7 @@ class TokenizationController:
                 selectedField = []
                 dynamicField = []
                 if not bool(iterate):
-                    return Response({"message": authtoke}, status=status.HTTP_200_OK)
+                    return Response({"message": "not_exist"}, status=status.HTTP_200_OK)
                 else:
                     for field in iterate:
                         selectedField = [

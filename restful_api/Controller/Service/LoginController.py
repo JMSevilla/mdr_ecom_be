@@ -66,7 +66,7 @@ def login(request):
                                     'business_owner',
                                     MDRHasher.encrypt(nodehelper[3]),
                                     GeneralParams.field_login_lastId,
-                                    collection['token']
+                                    MDRHasher.encrypt(collection['token'])
                                 ]
                                 return Response({"message": GeneralParams.field_login_afterserializer,
                                                  'response_data': responseCollection}, status=status.HTTP_200_OK)
@@ -89,7 +89,7 @@ def login(request):
                                     'business_owner',
                                     MDRHasher.encrypt(nodehelper[3]),
                                     GeneralParams.field_login_lastId,
-                                    collection['token']
+                                    MDRHasher.encrypt(collection['token'])
                                 ]
                                 return Response({"message": GeneralParams.field_login_afterserializer,
                                                  'response_data': responseCollection}, status=status.HTTP_200_OK)
@@ -112,7 +112,7 @@ def login(request):
                                 'business_owner',
                                 MDRHasher.encrypt(nodehelper[3]),
                                 GeneralParams.field_login_lastId,
-                                collection['token']
+                                MDRHasher.encrypt(collection['token'])
                             ]
                             return Response({"message": GeneralParams.field_login_afterserializer,
                                              'response_data': responseCollection}, status=status.HTTP_200_OK)
