@@ -13,7 +13,7 @@ class SignoutController:
             collection = {
                 "id" : request.POST.get("userID"),
                 "token" : request.POST.get("token"),
-                "platform" : request.POST.get("platform")
+                "platform" : request.POST.get("signout_platform")
             }
             identifier = collection["platform"]
             match identifier:
