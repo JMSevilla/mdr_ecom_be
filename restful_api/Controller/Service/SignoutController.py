@@ -12,51 +12,67 @@ class SignoutController:
         if request.method == 'POST':
             collection = {
                 "id" : request.POST.get("userID"),
-                "token" : request.POST.get("token")
+                "token" : request.POST.get("token"),
+                "platform" : request.POST.get("platform")
             }
-            signout_account = Tokenization.objects.filter(
-            userID=collection["id"]
-            ).values()
-            token_identifier = Tokenization.objects.filter(
-                token=collection["token"]
-            ).values()
-            if signout_account.count() > 0:
-                if token_identifier.count() > 0:
-                    Tokenization.objects.filter(
+            identifier = collection["platform"]
+            match identifier:
+                case "admin":
+                    signout_account = Tokenization.objects.filter(
+                    userID=collection["id"]
+                    ).values()
+                    token_identifier = Tokenization.objects.filter(
+                        token=collection["token"]
+                    ).values()
+                    if signout_account.count() > 0:
+                        if token_identifier.count() > 0:
+                            Tokenization.objects.filter(
+                                userID=collection["id"]
+                            ).update(
+                                isDestroyed="1", isvalid="0"
+                            )
+                            return Response({"message" : "signout_success"}, status=status.HTTP_200_OK)
+                        else:
+                            return Response({"message" : "token_not_match"}, status=status.HTTP_200_OK)
+                    else:
+                        return Response({"message" : "no_account_found"}, status=status.HTTP_100_CONTINUE)
+                case "student":
+                        signout_account = Tokenization.objects.filter(
                         userID=collection["id"]
-                    ).update(
-                        isDestroyed="1", isvalid="0"
-                    )
-                    return Response({"message" : "signout_success"}, status=status.HTTP_200_OK)
-                else:
-                    return Response({"message" : "token_not_match"}, status=status.HTTP_200_OK)
-            else:
-                return Response({"message" : "no_account_found"}, status=status.HTTP_100_CONTINUE)
-            
-            
-    @api_view(['POST'])
-    def signout_st(request):
-        if request.method == 'POST':
-            collection = {
-                "id" : request.POST.get("userID"),
-                "token" : request.POST.get("token")
-            }
-            signout_account = Tokenization.objects.filter(
-            userID=collection["id"]
-            ).values()
-            token_identifier = Tokenization.objects.filter(
-                token=collection["token"]
-            ).values()
-            if signout_account.count() > 0:
-                if token_identifier.count() > 0:
-                    Tokenization.objects.filter(
+                        ).values()
+                        token_identifier = Tokenization.objects.filter(
+                            token=collection["token"]
+                        ).values()
+                        if signout_account.count() > 0:
+                            if token_identifier.count() > 0:
+                                Tokenization.objects.filter(
+                                    userID=collection["id"]
+                                ).update(
+                                    isDestroyed="1", isvalid="0"
+                                )
+                                return Response({"message" : "signout_success"}, status=status.HTTP_200_OK)
+                            else:
+                                return Response({"message" : "token_not_match"}, status=status.HTTP_200_OK)
+                        else:
+                            return Response({"message" : "no_account_found"}, status=status.HTTP_100_CONTINUE)
+                case "business_owner":
+                        signout_account = Tokenization.objects.filter(
                         userID=collection["id"]
-                    ).update(
-                        isDestroyed="1", isvalid="0"
-                    )
-                    return Response({"message" : "signout_success"}, status=status.HTTP_200_OK)
-                else:
-                    return Response({"message" : "token_not_match"}, status=status.HTTP_200_OK)
-            else:
-                return Response({"message" : "no_account_found"}, status=status.HTTP_100_CONTINUE)
+                        ).values()
+                        token_identifier = Tokenization.objects.filter(
+                            token=collection["token"]
+                        ).values()
+                        if signout_account.count() > 0:
+                            if token_identifier.count() > 0:
+                                Tokenization.objects.filter(
+                                    userID=collection["id"]
+                                ).update(
+                                    isDestroyed="1", isvalid="0"
+                                )
+                                return Response({"message" : "signout_success"}, status=status.HTTP_200_OK)
+                            else:
+                                return Response({"message" : "token_not_match"}, status=status.HTTP_200_OK)
+                        else:
+                            return Response({"message" : "no_account_found"}, status=status.HTTP_100_CONTINUE)
+            
 
